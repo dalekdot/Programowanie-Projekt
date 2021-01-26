@@ -24,6 +24,15 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <Style x:Key="TextBStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="40"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -43,12 +52,7 @@
 
         <TextBlock Grid.Row="0"
                    Grid.ColumnSpan="6"
-                   Text="Baza Danych: Tabela"
-                   FontSize="40"
-                   Foreground="Black"
-                   FontWeight="Bold"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"/>
+                   Text="Baza Danych: Tabela" Style="{StaticResource TextBStyle}"/>
 
         <DataGrid Name="DataGrid1"
                   Grid.Row="1"

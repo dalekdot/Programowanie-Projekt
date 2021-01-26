@@ -161,7 +161,7 @@ namespace ReprezentacjaPolski2
                 // dataReader = command.ExecuteReader();
 
                 SqlDataAdapter dataAdp = new SqlDataAdapter(command);
-                DataTable dt = new DataTable("Reprezentanci2");
+                DataTable dt = new DataTable("TabelaRep1");
                 dataAdp.Fill(dt);
                 DataGrid1.ItemsSource = dt.DefaultView;
                 dataAdp.Update(dt);
