@@ -82,39 +82,49 @@ namespace ReprezentacjaPolski2
 
         private void Zapisz_Click(object sender, RoutedEventArgs e)
         {
-            Reprezentacja mFound = m_RepList.Find(oElement => oElement.IdRep == Convert.ToInt32(NumerID));
-            mFound.Pozycja = Text8.Text;
-            mFound.Imie = Text1.Text;
-            mFound.Nazwisko = Text2.Text;
-            mFound.Wiek = Convert.ToInt32(Text3.Text);
-            mFound.Klub = Text4.Text;
-            mFound.Gole = Convert.ToInt32(Text5.Text);
-            mFound.Wystepy = Convert.ToInt32(Text6.Text);
-            mFound.Pozycja = Text8.Text;
-            mFound.IdRep = Convert.ToInt32(Text7.Text);
 
-            string connetionString;
-            SqlConnection cnn;
-            connetionString = @"Data Source=DESKTOP-5KNOM36\SQLEXPRESS;Database=Reprezentacja1;User ID=dalek; Password=haslo ;";
-            cnn = new SqlConnection(connetionString);
-            cnn.Open();
+                //MessageBox.Show("Nowe dane zostały zapisane!");
 
-            SqlCommand command;
-            SqlDataReader dataReader;
-            String sql;
+                Reprezentacja mFound = m_RepList.Find(oElement => oElement.IdRep == Convert.ToInt32(NumerID));
+                mFound.Pozycja = Text8.Text;
+                mFound.Imie = Text1.Text;
+                mFound.Nazwisko = Text2.Text;
+                mFound.Wiek = Convert.ToInt32(Text3.Text);
+                mFound.Klub = Text4.Text;
+                mFound.Gole = Convert.ToInt32(Text5.Text);
+                mFound.Wystepy = Convert.ToInt32(Text6.Text);
+                mFound.Pozycja = Text8.Text;
+                try
+                {
+                    mFound.IdRep = Convert.ToInt32(Text7.Text);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Wpisz ID " + "\n(" + ex.Message + ")");
+                }
 
-            sql = "Update TabelaRep1 Set ID='" +this.Text7.Text + "', Imie='" + this.Text1.Text + "', Nazwisko='" + this.Text2.Text + "', Wiek='" + this.Text3.Text + "', Klub='" + this.Text4.Text + "', Gole='" + this.Text5.Text + "', Wystepy ='" + this.Text6.Text + "', Pozycja='" + this.Text8.Text + "' Where ID='" + NumerID + "'";
-            command = new SqlCommand(sql, cnn);
-            dataReader = command.ExecuteReader();
+                string connetionString;
+                SqlConnection cnn;
+                connetionString = @"Data Source=DESKTOP-5KNOM36\SQLEXPRESS;Database=Reprezentacja1;User ID=dalek; Password=haslo ;";
+                cnn = new SqlConnection(connetionString);
+                cnn.Open();
+
+                SqlCommand command;
+                SqlDataReader dataReader;
+                String sql;
+
+                sql = "Update TabelaRep1 Set ID='" + this.Text7.Text + "', Imie='" + this.Text1.Text + "', Nazwisko='" + this.Text2.Text + "', Wiek='" + this.Text3.Text + "', Klub='" + this.Text4.Text + "', Gole='" + this.Text5.Text + "', Wystepy ='" + this.Text6.Text + "', Pozycja='" + this.Text8.Text + "' Where ID='" + NumerID + "'";
+                command = new SqlCommand(sql, cnn);
+                dataReader = command.ExecuteReader();
 
 
+                var serializer = new XmlSerializer(m_RepList.GetType());
+                using (var writer = XmlWriter.Create("Reprezentacja.xml"))
+                {
+                    serializer.Serialize(writer, m_RepList);
+                }
+            
             MessageBox.Show("Nowe dane zostały zapisane!");
-
-            var serializer = new XmlSerializer(m_RepList.GetType());
-            using (var writer = XmlWriter.Create("Reprezentacja.xml"))
-            {
-                serializer.Serialize(writer, m_RepList);
-            }
         }
 
         private void close(object sender, System.ComponentModel.CancelEventArgs e)

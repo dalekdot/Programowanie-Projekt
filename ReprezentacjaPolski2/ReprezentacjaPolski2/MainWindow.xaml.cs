@@ -18,6 +18,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Data;
 using System.Data.SqlClient;
+using System.Windows.Media.Animation;
 
 namespace ReprezentacjaPolski2
 {
@@ -27,6 +28,8 @@ namespace ReprezentacjaPolski2
         private List<Reprezentacja> m_RepList = null;
         Window1 openWindow1 = new Window1();
         Window3 openWindow3 = new Window3();
+
+        private bool isRunning;
 
         public MainWindow()
         {
@@ -72,33 +75,47 @@ namespace ReprezentacjaPolski2
 
         private void Usuń_Click(object sender, RoutedEventArgs e)
         {
-            m_RepList.RemoveAt(Convert.ToInt32(SID.Text) - 1);
-            var serializer = new XmlSerializer(m_RepList.GetType());
-            using (var writer = XmlWriter.Create("Reprezentacja.xml"))
+            try
             {
-                serializer.Serialize(writer, m_RepList);
+                m_RepList.RemoveAt(Convert.ToInt32(SID.Text) - 1);
+                var serializer = new XmlSerializer(m_RepList.GetType());
+                using (var writer = XmlWriter.Create("Reprezentacja.xml"))
+                {
+                    serializer.Serialize(writer, m_RepList);
+                }
+
+                string connetionString;
+                SqlConnection cnn;
+                connetionString = @"Data Source=DESKTOP-5KNOM36\SQLEXPRESS;Database=Reprezentacja1;User ID=dalek; Password=haslo ;";
+                cnn = new SqlConnection(connetionString);
+                cnn.Open();
+
+                SqlCommand command;
+                SqlDataReader dataReader;
+                String sql;
+
+                sql = "Delete From TabelaRep1 where ID='" + SID.Text + "'";
+                command = new SqlCommand(sql, cnn);
+                dataReader = command.ExecuteReader();
+                MessageBox.Show("Usunięto Reprezentanta od ID = " + SID.Text);
             }
-
-            string connetionString;
-            SqlConnection cnn;
-            connetionString = @"Data Source=DESKTOP-5KNOM36\SQLEXPRESS;Database=Reprezentacja1;User ID=dalek; Password=haslo ;";
-            cnn = new SqlConnection(connetionString);
-            cnn.Open();
-
-            SqlCommand command;
-            SqlDataReader dataReader;
-            String sql;
-
-            sql = "Delete From TabelaRep1 where ID='" + SID.Text + "'";
-            command = new SqlCommand(sql, cnn);
-            dataReader = command.ExecuteReader();
-            MessageBox.Show("Usunięto Reprezentanta od ID = " + SID.Text);
+            catch(Exception ex)
+            {
+                MessageBox.Show("Wpisz poprawne ID " + "\n(" + ex.Message + ")");
+            }
         }
 
         private void Edytuj_Click(object sender, RoutedEventArgs e)
         {
-            Window2 openWindow2 = new Window2(SID.Text);
-            openWindow2.Show();
+            try
+            {
+                Window2 openWindow2 = new Window2(SID.Text);
+                openWindow2.Show();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Wpisz ID " + "\n(" + ex.Message +")");
+            }
         }
 
         private void Dodaj_Click(object sender, RoutedEventArgs e)
@@ -128,6 +145,26 @@ namespace ReprezentacjaPolski2
             }
 
             Zawodnicy1.ItemsSource = m_RepList;
+        }
+
+        private void Tlo_Click(object sender, RoutedEventArgs e)
+        {
+            var flashButton = FindResource("FlashButton") as Storyboard;
+            var changeColor = FindResource("ChangeColor") as Storyboard;
+            var changeColor2 = FindResource("ChangeColor2") as Storyboard;
+
+            if (isRunning)
+            {
+                flashButton.Stop();
+                changeColor2.Begin();
+                isRunning = false;
+            }
+            else
+            {
+                flashButton.Begin();
+                changeColor.Begin();
+                isRunning = true;
+            }
         }
     }
 }

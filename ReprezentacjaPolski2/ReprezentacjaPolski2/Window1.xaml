@@ -6,7 +6,27 @@
         xmlns:local="clr-namespace:ReprezentacjaPolski2"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="Dodawanie" Height="1000" Width="400">
+        Title="Dodawanie Reprezentanta" Height="1000" Width="400" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#373737" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#E59400" />
+                    <Setter Property="Foreground" Value="Black" />
+                </Trigger>
+
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="OrangeRed" />
+                    <Setter Property="Foreground" Value="Black" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -54,10 +74,10 @@
         <TextBox Width="150" Height="30"  Name="Text8" Grid.Row="7" Grid.Column="1"/>
 
         <Image Height="100" Width="150" Name="obraz" Grid.Row="8" Grid.Column="0" />
-        <Button Content="Wybierz Obraz"  Width="100" Height="20" Grid.Row="8" Grid.Column="1" Click="Obraz_Click_1" />
+        <Button Content="Wybierz Obraz"  Width="120" Height="30" Grid.Row="8" Grid.Column="1" Click="Obraz_Click_1" Style="{StaticResource ButtonStyle}" />
 
-        <Button Grid.Row="9" Grid.Column="0" Width = "100" Height="20" Content="Odśwież" Click="Odswiez_Click"  />
-        <Button Grid.Row="9" Grid.Column="1" Width="100" Height="20" Content="Zapisz" Click="Zapisz" />
+        <Button Grid.Row="9" Grid.Column="0" Width = "75" Height="30" Content="Odśwież" Click="Odswiez_Click" Style="{StaticResource ButtonStyle}" />
+        <Button Grid.Row="9" Grid.Column="1" Width="75" Height="30" Content="Zapisz" Click="Zapisz" Style="{StaticResource ButtonStyle}" />
 
         <ListView Name="ZawodnicySkrócony" Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin ="10" BorderBrush="Black" PreviewMouseLeftButtonUp="Modify" >
             <ListView.View>

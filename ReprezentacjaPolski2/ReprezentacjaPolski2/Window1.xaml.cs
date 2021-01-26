@@ -88,49 +88,52 @@ namespace ReprezentacjaPolski2
 
         private void Zapisz(object sender, RoutedEventArgs e)
         {
-            ZawodnicySkrócony.ItemsSource = null;
-            var serializer = new XmlSerializer(m_RepList.GetType());
-            m_RepList.Add(new Reprezentacja(m_RepList.Count + 1, Text1.Text, Text2.Text, Convert.ToInt32(Text3.Text),
-                Text4.Text, Convert.ToInt32(Text5.Text), Convert.ToInt32(Text6.Text), gdzie, Text8.Text));
-            using (var writer = XmlWriter.Create("Reprezentacja.xml"))
-            {
-                serializer.Serialize(writer, m_RepList);
-            }
-
-            string connetionString;
-
-            SqlConnection cnn;
-            connetionString = @"Data Source=DESKTOP-5KNOM36\SQLEXPRESS;Database=Reprezentacja1;User ID=dalek; Password=haslo ;";
-            cnn = new SqlConnection(connetionString);
-            cnn.Open();
-
-            SqlCommand command;
-            SqlDataReader dataReader;
-            String sql;
-
-            sql = "Insert into TabelaRep1 (ID,Imie,Nazwisko,Wiek,Klub,Gole , Wystepy, Pozycja) values('"+ this.Text7.Text + "','" + this.Text1.Text + "','" + this.Text2.Text + "','" + this.Text3.Text + "','" + this.Text4.Text + "','" + this.Text5.Text + "','" + this.Text6.Text + "','" + this.Text8.Text + "')";
-            command = new SqlCommand(sql, cnn);
-            dataReader = command.ExecuteReader();
-            MessageBox.Show("Dodano");
-
-
-
-            this.Visibility = Visibility.Hidden;
-
             try
             {
-                using (var reader = new StreamReader("Reprezentacja.xml"))
+                ZawodnicySkrócony.ItemsSource = null;
+                var serializer = new XmlSerializer(m_RepList.GetType());
+                m_RepList.Add(new Reprezentacja(m_RepList.Count + 1, Text1.Text, Text2.Text, Convert.ToInt32(Text3.Text),
+                    Text4.Text, Convert.ToInt32(Text5.Text), Convert.ToInt32(Text6.Text), gdzie, Text8.Text));
+                using (var writer = XmlWriter.Create("Reprezentacja.xml"))
                 {
-                    XmlSerializer deserializer = new XmlSerializer(typeof(List<Reprezentacja>),
-                        new XmlRootAttribute("ArrayOfReprezentacja"));
-                    m_RepList = (List<Reprezentacja>)deserializer.Deserialize(reader);
+                    serializer.Serialize(writer, m_RepList);
                 }
+
+                string connetionString;
+
+                SqlConnection cnn;
+                connetionString = @"Data Source=DESKTOP-5KNOM36\SQLEXPRESS;Database=Reprezentacja1;User ID=dalek; Password=haslo ;";
+                cnn = new SqlConnection(connetionString);
+                cnn.Open();
+
+                SqlCommand command;
+                SqlDataReader dataReader;
+                String sql;
+
+                sql = "Insert into TabelaRep1 (ID,Imie,Nazwisko,Wiek,Klub,Gole , Wystepy, Pozycja) values('" + this.Text7.Text + "','" + this.Text1.Text + "','" + this.Text2.Text + "','" + this.Text3.Text + "','" + this.Text4.Text + "','" + this.Text5.Text + "','" + this.Text6.Text + "','" + this.Text8.Text + "')";
+                command = new SqlCommand(sql, cnn);
+                dataReader = command.ExecuteReader();
+                MessageBox.Show("Dodano");
+
+                try
+                {
+                    using (var reader = new StreamReader("Reprezentacja.xml"))
+                    {
+                        XmlSerializer deserializer = new XmlSerializer(typeof(List<Reprezentacja>),
+                            new XmlRootAttribute("ArrayOfReprezentacja"));
+                        m_RepList = (List<Reprezentacja>)deserializer.Deserialize(reader);
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Brak pliku do załadowania!", "Uwaga", MessageBoxButton.OK);
+                }
+                ZawodnicySkrócony.ItemsSource = m_RepList;
             }
-            catch
+            catch(Exception)
             {
-                MessageBox.Show("Brak pliku do załadowania!", "Uwaga", MessageBoxButton.OK);
+                MessageBox.Show("Wpisz poprawnie wszystkie dane!");
             }
-            ZawodnicySkrócony.ItemsSource = m_RepList;
         }
 
         private void Modify(object sender, MouseButtonEventArgs e)
