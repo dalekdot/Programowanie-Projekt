@@ -7,25 +7,6 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         Title="Edycja Danych" Height="600" Width="350" WindowStartupLocation="CenterScreen">
-    <Window.Resources>
-        <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#373737" />
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="FontSize" Value="10" />
-            <Setter Property="SnapsToDevicePixels" Value="True" />
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#E59400" />
-                    <Setter Property="Foreground" Value="Black" />
-                </Trigger>
-
-                <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" Value="OrangeRed" />
-                    <Setter Property="Foreground" Value="Black" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -39,22 +20,22 @@
 
         <WrapPanel Name="plnPersonForm" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
             <Label Content="Imię:" MinWidth="75" Margin="5" />
-            <TextBox MinWidth="180" Margin="5" Name="Text1"  IsEnabled="False"/>
+            <TextBox MinWidth="180" Margin="5" Name="Text1"  IsEnabled="False" PreviewTextInput="WalidacjaTekstu"/>
             <Label Content="Nazwisko:" MinWidth="75" Margin="5" />
-            <TextBox MinWidth="180" Margin="5" Name="Text2" IsEnabled="False"/>
+            <TextBox MinWidth="180" Margin="5" Name="Text2" IsEnabled="False" PreviewTextInput="WalidacjaTekstu"/>
             <Label Content="Wiek:" MinWidth="75" Margin="5" />
-            <TextBox MinWidth="180" Margin="5" Name="Text3" IsEnabled="False"/>
+            <TextBox MinWidth="180" Margin="5" Name="Text3" IsEnabled="False" PreviewTextInput="WalidacjaCyfr"/>
             <Label Content="Klub:" MinWidth="75" Margin="5" />
-            <TextBox MinWidth="180" Margin="5" Name="Text4" IsEnabled="False"/>
+            <TextBox MinWidth="180" Margin="5" Name="Text4" IsEnabled="False" PreviewTextInput="WalidacjaTekstu"/>
             <Label Content="Gole:" MinWidth="75" Margin="5" />
-            <TextBox MinWidth="180" Margin="5" Name="Text5" IsEnabled="False"/>
+            <TextBox MinWidth="180" Margin="5" Name="Text5" IsEnabled="False" PreviewTextInput="WalidacjaCyfr"/>
             <Label Content="Występy:" MinWidth="75" Margin="5" />
-            <TextBox MinWidth="180" Margin="5" Name="Text6" IsEnabled="False"/>
+            <TextBox MinWidth="180" Margin="5" Name="Text6" IsEnabled="False" PreviewTextInput="WalidacjaCyfr"/>
 
             <Label Content="Pozycja:" MinWidth="75" Margin="5" />
-            <TextBox MinWidth="180" Margin="5" Name="Text8" IsEnabled="False"/>
+            <TextBox MinWidth="180" Margin="5" Name="Text8" IsEnabled="False" PreviewTextInput="WalidacjaTekstu"/>
             <Label Content="ID:" MinWidth="75" Margin="5" />
-            <TextBox MinWidth="180" Margin="5" Name="Text7" IsEnabled="False"/>
+            <TextBox MinWidth="180" Margin="5" Name="Text7" IsEnabled="False" PreviewTextInput="WalidacjaCyfr"/>
             <Label Name="x" Visibility="Hidden"></Label>
             <Image Height="100" Width="12"  MinWidth="180" Margin="10" x:Name="Pokaz_obraz"/>
             <Button Height="30" Width="120" Content="Wybierz Obraz" Click="Obraz_Click" IsEnabled="False" Name="Wstaw" Style="{StaticResource ButtonStyle}"/>

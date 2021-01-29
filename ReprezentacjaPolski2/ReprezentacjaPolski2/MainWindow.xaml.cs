@@ -51,7 +51,7 @@ namespace ReprezentacjaPolski2
             }
             catch
             {
-                MessageBox.Show("Brak pliku do załadowania!", "Uwaga", MessageBoxButton.OK);
+                MessageBox.Show("Brak pliku XAML!", "Uwaga", MessageBoxButton.OK);
             }
 
             if (m_RepList.Count == 0)
@@ -121,6 +121,7 @@ namespace ReprezentacjaPolski2
         private void Dodaj_Click(object sender, RoutedEventArgs e)
         {
             openWindow1.Show();
+            
         }
 
         private void Baza_Click(object sender, RoutedEventArgs e)
@@ -141,7 +142,7 @@ namespace ReprezentacjaPolski2
             }
             catch
             {
-                MessageBox.Show("Brak pliku do załadowania!", "Uwaga", MessageBoxButton.OK);
+                MessageBox.Show("Brak pliku XAML!", "Uwaga", MessageBoxButton.OK);
             }
 
             Zawodnicy1.ItemsSource = m_RepList;

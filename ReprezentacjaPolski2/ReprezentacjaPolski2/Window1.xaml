@@ -7,26 +7,6 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         Title="Dodawanie Reprezentanta" Height="1000" Width="400" WindowStartupLocation="CenterScreen">
-
-    <Window.Resources>
-        <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#373737" />
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="FontSize" Value="10" />
-            <Setter Property="SnapsToDevicePixels" Value="True" />
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#E59400" />
-                    <Setter Property="Foreground" Value="Black" />
-                </Trigger>
-
-                <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" Value="OrangeRed" />
-                    <Setter Property="Foreground" Value="Black" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -50,28 +30,28 @@
         </Grid.ColumnDefinitions>
 
         <Label Content="ID" Height="30" Width="100" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center"/>
-        <TextBox Width="150" Height="30" Name="Text7" IsEnabled="True"  Grid.Row="0" Grid.Column="1" />
+        <TextBox Width="150" Height="30" Name="Text7" IsEnabled="True"  Grid.Row="0" Grid.Column="1" PreviewTextInput="WalidacjaCyfr"/>
 
         <Label Content="Imie" Height="30" Width="100" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" />
-        <TextBox Width="150" Height="30" Name="Text1" Grid.Row="1" Grid.Column="1"/>
+        <TextBox Width="150" Height="30" Name="Text1" Grid.Row="1" Grid.Column="1" PreviewTextInput="WalidacjaTekstu"/>
 
         <Label Content="Nazwisko" Height="30" Width="100" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center"/>
-        <TextBox Width="150" Height="30"  Name="Text2" Grid.Row="2" Grid.Column="1"/>
+        <TextBox Width="150" Height="30"  Name="Text2" Grid.Row="2" Grid.Column="1" PreviewTextInput="WalidacjaTekstu"/>
 
         <Label Content="Wiek" Height="30" Width="100" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center"/>
-        <TextBox Width="150" Height="30"  Name="Text3" Grid.Row="3" Grid.Column="1"/>
+        <TextBox Width="150" Height="30"  Name="Text3" Grid.Row="3" Grid.Column="1" PreviewTextInput="WalidacjaCyfr"/>
 
         <Label Content="Klub" Height="30" Width="100" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center"/>
-        <TextBox Width="150" Height="30"  Name="Text4" Grid.Row="4" Grid.Column="1"/>
+        <TextBox Width="150" Height="30"  Name="Text4" Grid.Row="4" Grid.Column="1" PreviewTextInput="WalidacjaTekstu"/>
 
         <Label Content="Gole" Height="30" Width="100" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center"/>
-        <TextBox Width="150" Height="30"  Name="Text5" Grid.Row="5" Grid.Column="1"/>
+        <TextBox Width="150" Height="30"  Name="Text5" Grid.Row="5" Grid.Column="1" PreviewTextInput="WalidacjaCyfr"/>
 
         <Label Content="Występy" Height="30" Width="100" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center"/>
-        <TextBox Width="150" Height="30"  Name="Text6" Grid.Row="6" Grid.Column="1"/>
+        <TextBox Width="150" Height="30"  Name="Text6" Grid.Row="6" Grid.Column="1" PreviewTextInput="WalidacjaCyfr"/>
 
         <Label Content="Pozycja" Height="30" Width="100" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Center"/>
-        <TextBox Width="150" Height="30"  Name="Text8" Grid.Row="7" Grid.Column="1"/>
+        <TextBox Width="150" Height="30"  Name="Text8" Grid.Row="7" Grid.Column="1" PreviewTextInput="WalidacjaTekstu"/>
 
         <Image Height="100" Width="150" Name="obraz" Grid.Row="8" Grid.Column="0" />
         <Button Content="Wybierz Obraz"  Width="120" Height="30" Grid.Row="8" Grid.Column="1" Click="Obraz_Click_1" Style="{StaticResource ButtonStyle}" />

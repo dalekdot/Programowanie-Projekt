@@ -19,6 +19,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace ReprezentacjaPolski2
 {
@@ -30,6 +31,7 @@ namespace ReprezentacjaPolski2
         {
             InitializeComponent();
             Binding();
+            //Window_Closing();
         }
 
         private void Binding()
@@ -46,7 +48,7 @@ namespace ReprezentacjaPolski2
             }
             catch
             {
-                MessageBox.Show("Brak pliku do załadowania!", "Uwaga", MessageBoxButton.OK);
+                MessageBox.Show("Brak pliku XAML!", "Uwaga", MessageBoxButton.OK);
             }
 
             Image image = new Image();
@@ -80,7 +82,7 @@ namespace ReprezentacjaPolski2
             }
             catch
             {
-                MessageBox.Show("Brak pliku do załadowania!", "Uwaga", MessageBoxButton.OK);
+                MessageBox.Show("Brak pliku XAML!", "Uwaga", MessageBoxButton.OK);
             }
 
             ZawodnicySkrócony.ItemsSource = m_RepList;
@@ -126,9 +128,10 @@ namespace ReprezentacjaPolski2
                 }
                 catch
                 {
-                    MessageBox.Show("Brak pliku do załadowania!", "Uwaga", MessageBoxButton.OK);
+                    MessageBox.Show("Brak pliku XAML!", "Uwaga", MessageBoxButton.OK);
                 }
                 ZawodnicySkrócony.ItemsSource = m_RepList;
+                this.Visibility = Visibility.Hidden;
             }
             catch(Exception)
             {
@@ -154,6 +157,18 @@ namespace ReprezentacjaPolski2
             {
                 serializer.Serialize(writer, m_RepList);
             }
+
+        }
+        private void WalidacjaTekstu(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"\P{L}");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void WalidacjaCyfr(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

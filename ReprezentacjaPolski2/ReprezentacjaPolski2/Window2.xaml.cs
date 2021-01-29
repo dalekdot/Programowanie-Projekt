@@ -20,6 +20,7 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Data.SqlClient;
 using System.Data;
+using System.Text.RegularExpressions;
 
 namespace ReprezentacjaPolski2
 {
@@ -52,7 +53,7 @@ namespace ReprezentacjaPolski2
             }
             catch
             {
-                MessageBox.Show("Brak pliku do załadowania!", "Uwaga", MessageBoxButton.OK);
+                MessageBox.Show("Brak pliku XAML!", "Uwaga", MessageBoxButton.OK);
             }
             Reprezentacja mFound = m_RepList.Find(oElement => oElement.IdRep == Convert.ToInt32(NumerID));
             Text1.Text = mFound.Imie;
@@ -123,8 +124,9 @@ namespace ReprezentacjaPolski2
                 {
                     serializer.Serialize(writer, m_RepList);
                 }
-            
+            this.Visibility = Visibility.Hidden;
             MessageBox.Show("Nowe dane zostały zapisane!");
+            
         }
 
         private void close(object sender, System.ComponentModel.CancelEventArgs e)
@@ -147,6 +149,17 @@ namespace ReprezentacjaPolski2
                 Uri fileUri = new Uri(openFileDialog.FileName);
                 Pokaz_obraz.Source = new BitmapImage(fileUri);
             }
+        }
+        private void WalidacjaTekstu(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"\P{L}");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void WalidacjaCyfr(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }
